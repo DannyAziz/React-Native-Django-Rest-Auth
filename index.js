@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
 // Change this
-const API_URL = "CHANGE THIS"
+const API_URL = "CHANGE THIS";
 
 export var DjangoAuth = {
   authenticationStatus() {
@@ -26,16 +26,16 @@ export var DjangoAuth = {
               } else {
                 reject(data);
               }
-            })
+            });
           })
           .catch((error) => {
             reject(error);
-          })
+          });
       })
       .catch((err) => {
         reject(err);
-      })
-    })
+      });
+    });
   },
   /*
   attempts login with given username and password.
@@ -60,16 +60,16 @@ export var DjangoAuth = {
           if (response.ok) {
             AsyncStorage.setItem('auth_token', data.key).then(() => {
               resolve('Authenticated');
-            })
+            });
           } else {
-            reject(data)
+            reject(data);
           }
-        })
+        });
       })
       .catch((error) => {
-        reject(data);
-      })
-    })
+        reject(error);
+      });
+    });
   },
   /*
   This will call the logout API and if succesful will remove the auth_token.
@@ -91,18 +91,18 @@ export var DjangoAuth = {
           response.json().then((data) => {
             if (response.ok) {
               AsyncStorage.removeItem('auth_token').then(() => {
-                resolve('Logged out!')
-              })
+                resolve('Logged out!');
+              });
             } else {
-              reject(data)
+              reject(data);
             }
-          })
+          });
         })
         .catch((error) => {
           reject(error);
-        })
-      })
-    })
+        });
+      });
+    });
   },
   register(username, password, email, firstName, lastName) {
     return new Promise((resolve, reject) => {
@@ -124,17 +124,17 @@ export var DjangoAuth = {
       .then((response) => {
         response.json().then((data) => {
           if (response.ok) {
-            AsyncStorage.setItem('auth_token', token).then(() => {
+            AsyncStorage.setItem('auth_token', data.key).then(() => {
               resolve('Authenticated');
-            })
+            });
           } else {
             reject(data);
           }
-        })
+        });
       })
       .catch((error) => {
-        data(error)
-      })
-    })
+        reject(error);
+      });
+    });
   }
-}
+};
